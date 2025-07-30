@@ -1,6 +1,13 @@
-# Set your Gemini API key
+import os
+from dotenv import load_dotenv
 import google.generativeai as genai
-genai.configure(api_key='AIzaSyDL6GzVhNhfH-BSM6cumRcmebO6fofvDNI')
+
+load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY")
+
+if not api_key:
+    raise ValueError("Gemini API key not found. Make sure .env file contains GEMINI_API_KEY.")
+genai.configure(api_key=api_key)
 
 def generate_reply(email_text):
     prompt = f"""
